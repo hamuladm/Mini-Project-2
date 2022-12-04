@@ -41,7 +41,7 @@ def make_zip(src: str, dst: str):
                 myzip.write(src)
             else:
                 for root, dirs, files in os.walk(src):
-                    dirs.index('1')
+                    dirs = dirs.copy
                     for file in files:
                         myzip.write(os.path.join(root, file))
     except argparse.ArgumentError:

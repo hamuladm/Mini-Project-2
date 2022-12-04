@@ -31,9 +31,9 @@ def tree (path: str):
         for dirpath, dirnames, filenames in os.walk(path):
             dirnames = dirnames.copy
             count = dirpath.count('/')
-            print ('└──', '──'*count, '├─', dirpath.split('/')[-1]+'/')
+            print ('└─', '──'*count, '├─', dirpath.split('/')[-1]+'/')
             for filename in filenames:
-                print('│', '  ', '  '*count, '└──', filename)
+                print('│ ','  '*count, '  └──', filename)
     except argparse.ArgumentError:
         print(
               'Print proper argument.\
