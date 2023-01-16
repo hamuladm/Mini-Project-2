@@ -8,6 +8,7 @@ Program encrypts a text from file\
 import argparse
 import string
 
+
     #Making a parser
 parser = argparse.ArgumentParser(description = 'Caesar encryption')
 parser.add_argument(
@@ -29,7 +30,8 @@ parser.add_argument(
 parser.add_argument(
                     '-de',
                     '--decrypt',
-                    help = 'Decrypting file'
+                    help = 'Decrypting file',
+                    action = 'store_true'
                     )
 args = parser.parse_args()
 
@@ -98,6 +100,7 @@ def caesar_encoding(filename: str):
               )
     return 1
 
+
 def caesar_decoding(filename: str):
     '''
     (str) -> str
@@ -160,6 +163,8 @@ def caesar_decoding(filename: str):
               For information use [-h] or [--help]'
               )
     return 1
+
+
 
 if __name__ == '__main__':
     if args.decrypt:

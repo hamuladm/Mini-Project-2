@@ -41,38 +41,38 @@ args = parser.parse_args()
 
 
 # Main function
-def find_sublines(rex: str, path: str, filename: str) -> 1:
+def find_sublines(rex: str, path: str, filename: str, count = 0) -> 1:
     '''
 
-    (str, str, str)
+    (str, str, str) -> 1
 
     Function find rex in filename in path
 
     '''
-    count = 0
-    for dirpath, dirnames, filenames in os.walk(path):
-        dirnames = dirnames.copy
+    for dirpath, _, filenames in os.walk(path):
         os.chdir(dirpath)
         for file in filenames:
-            match1 = re.findall(filename, file)
-            if len(match1) > 0:
-                with open (file, 'r', encoding = 'utf_8') as fyle:
-                    content = fyle.read()
-                match = re.findall(rex, content)
-                content = content.split('\n')
-                for i in content:
-                    if rex in i:
-                        line_num = content.index(rex)
-                    if len(match) > 0:
-                        count += 1
-                        if args.show_lines:
-                            print (file + '\n')
-                            for mat1 in match:
-                                print(f'№: {line_num}, reqular expression: {mat1}')
-                        for mat in match:
-                            print(mat + '\n')
-    if args.only_show_counts:
-        print(count)
+            if re.match(filename, file):
+                with open (file, 'r', encoding = 'utf-8') as file1:
+                    content = file1.read().splitlines()
+                    count += len(re.findall(rex, file1.read()))
+                if args.show_lines:
+                    for line in content:
+                        if len(re.findall(rex, line)) > 0:
+                            print (file)
+                            for match in content:
+                                if rex in match:
+                                    for rexeg in re.findall(rex, line):
+                                        print (f'{content.index(match)}:{rexeg}')
+                else:
+                    if args.only_show_counts:
+                        print(count)
+                    else:
+                        for line in content:
+                            if len(re.findall(rex, line)) > 0:
+                                print (file)
+                                for match in re.findall(rex, line):
+                                    print (match)
     return 1
 
 

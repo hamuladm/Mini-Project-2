@@ -8,6 +8,7 @@ Program makes an archive with all files that have common re \
 from zipfile import ZipFile
 import argparse
 import re
+import os
 
 
 # Making a parser
@@ -46,11 +47,10 @@ def find_re(zipfile: str, rex: str, new_zipfile: str):
             myzip.extractall()
         with ZipFile (new_zipfile, 'w') as myzip2:
             for file in nameslist:
-                with open (file, 'r', encoding = 'utf-8') as file1:
-                    fileread = file1.read()
-                    match = re.findall(rex, fileread)
-                    if len(match) > 0:
-                        myzip2.write(file)
+                if os.path.isfile(file):
+                    with open (file, 'r', encoding = 'utf-8') as file1:
+                        if len(re.findall(rex, file1.read())) > 0:
+                            myzip2.write(file)
     except argparse.ArgumentError:
         print(
         'Print proper argument.\

@@ -37,11 +37,10 @@ def make_zip(src: str, dst: str):
     '''
     try:
         with zipfile.ZipFile (dst, 'w', zipfile.ZIP_DEFLATED) as myzip:
-            if src.endswith('.txt'):
+            if os.path.isfile(src):
                 myzip.write(src)
             else:
-                for root, dirs, files in os.walk(src):
-                    dirs = dirs.copy
+                for root, _, files in os.walk(src):
                     for file in files:
                         myzip.write(os.path.join(root, file))
     except argparse.ArgumentError:

@@ -7,7 +7,6 @@ Program replaces one line with another\
 
     #Importing neccessary modules
 import argparse
-import re
 
 
     #Making a parser
@@ -44,7 +43,7 @@ def line_replace(line1: str, line2: str, filename: str):
     try:
         with open (filename, 'r', encoding = 'utf-8') as file:
             listfile = file.read()
-        listfile = re.sub(line1, line2, listfile)
+        listfile = listfile.replace(line1, line2)
         if args.inplace:        #Checking If there's an optional argument
             with open (filename, 'w', encoding = 'utf-8') as file1:
                 file1.write(listfile)
@@ -61,6 +60,7 @@ def line_replace(line1: str, line2: str, filename: str):
               'Print proper argument.\
               For information use [-h] or [--help]'
               )
+
 
 if __name__ == '__main__':
     line_replace(args.line1, args.line2, args.filename)
